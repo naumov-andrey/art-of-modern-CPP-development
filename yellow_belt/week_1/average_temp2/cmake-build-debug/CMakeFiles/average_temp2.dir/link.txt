@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/average_temp2.dir/main.cpp.o  -o average_temp2 
