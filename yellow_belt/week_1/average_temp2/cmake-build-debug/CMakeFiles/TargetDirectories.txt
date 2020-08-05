@@ -1,0 +1,3 @@
+/media/andrei/data/study/self-education/coursera/the_art_of_modern_c++_development/yellow_belt/week_1/average_temp2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/media/andrei/data/study/self-education/coursera/the_art_of_modern_c++_development/yellow_belt/week_1/average_temp2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/media/andrei/data/study/self-education/coursera/the_art_of_modern_c++_development/yellow_belt/week_1/average_temp2/cmake-build-debug/CMakeFiles/average_temp2.dir
