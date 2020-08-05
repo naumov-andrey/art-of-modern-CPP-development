@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/andrei/data/study/self-education/coursera/cpp.white/second/bus_stations2_main.cpp
+iostream
+-
+map
+-
+vector
+-
+string
+-
+
+/media/andrei/data/study/self-education/coursera/cpp.white/second/bus_stations3_main.cpp
+iostream
+-
+string
+-
+set
+-
+map
+-
+
+/media/andrei/data/study/self-education/coursera/cpp.white/second/synonyms_main.cpp
+iostream
+-
+string
+-
+set
+-
+map
+-
+

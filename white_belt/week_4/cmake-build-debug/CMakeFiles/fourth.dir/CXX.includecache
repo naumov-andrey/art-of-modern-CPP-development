@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/andrei/data/study/self-education/coursera/cpp.white/fourth/rational6.cpp
+numeric
+-
+exception
+-
+set
+-
+iostream
+-
+
+/media/andrei/data/study/self-education/coursera/cpp.white/fourth/rational7.cpp
+numeric
+-
+iostream
+-
+set
+-
+exception
+-
+stdexcept
+-
+

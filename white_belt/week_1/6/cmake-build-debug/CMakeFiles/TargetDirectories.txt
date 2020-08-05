@@ -1,0 +1,3 @@
+/media/andrei/data/study/self-education/coursera/cpp.white/6/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/media/andrei/data/study/self-education/coursera/cpp.white/6/cmake-build-debug/CMakeFiles/edit_cache.dir
+/media/andrei/data/study/self-education/coursera/cpp.white/6/cmake-build-debug/CMakeFiles/6.dir
