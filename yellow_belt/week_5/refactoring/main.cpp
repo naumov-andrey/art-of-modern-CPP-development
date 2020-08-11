@@ -17,6 +17,7 @@ public:
 
   string GetName() const { return name_;}
   string GetJob() const { return job_;}
+  string Log() const { return job_ + ": " + name_;}
 
 protected:
   const string name_;
@@ -31,7 +32,7 @@ public:
   {}
 
   void Learn() const {
-    cout << job_ << ": " << name_ << " learns" << endl;
+    cout << Log() << " learns" << endl;
   }
 
   void Walk(const string& destination) const override{
@@ -40,11 +41,11 @@ public:
   }
 
   void SingSong() const {
-    cout << job_ << ": " << name_ << " sings a song: " << favouriteSong_ << endl;
+    cout << Log() << " sings a song: " << favouriteSong_ << endl;
   }
 
 protected:
-  string favouriteSong_;
+  const string favouriteSong_;
 };
 
 
@@ -56,12 +57,11 @@ public:
   {}
 
   void Teach() const {
-    cout << job_ << ": " << name_ << " teaches: " << subject_ << endl;
+    cout << Log() << " teaches: " << subject_ << endl;
   }
 
 protected:
-  string name_;
-  string subject_;
+  const string subject_;
 };
 
 
@@ -72,7 +72,7 @@ public:
   {}
 
   void Check(const Citizen& c) const {
-    cout << "Policeman: " << name_ << " checks " << c.GetJob() << ". "
+    cout << Log() << " checks " << c.GetJob() << ". "
       << c.GetJob() << "'s name is: " << c.GetName() << endl;
   }
 };
