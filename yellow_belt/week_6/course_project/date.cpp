@@ -55,7 +55,7 @@ bool operator < (const Date& lhs, const Date& rhs) {
 }
 
 bool operator > (const Date& lhs, const Date& rhs) {
-  return rhs < lhs;
+  return (rhs < lhs);
 }
 
 bool operator <= (const Date& lhs, const Date& rhs) {
@@ -89,5 +89,5 @@ Date ParseDate(istream& is) {
   if (!ok) {
     throw logic_error("Wrong date format: " + date);
   }
-  return Date(year, month, day);
+  return {year, month, day};
 }

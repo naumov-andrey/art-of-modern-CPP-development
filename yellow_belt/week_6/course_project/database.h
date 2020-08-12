@@ -17,29 +17,32 @@ public:
   pair<Date, string> Last(const Date& date) const;
 
   template<typename Predicate> int RemoveIf(Predicate predicate) {
-    int to_delete = 0;
-    map<Date, vector<string>> new_records;
-    for (auto& rec : records_) {
-      Date date = rec.first;
-      auto it = remove_if(rec.second.begin(), rec.second.end(), [date, predicate](const auto& event) {
-        return predicate(date, event);
+    int removed = 0;
+    for (auto it = chronology_.begin(); it != chronology_.end();) {
+      auto new_end = stable_partition(it->second.begin(), it->second.end(), [it, predicate](const auto& ev) {
+        return !predicate(it->first, ev);
       });
-      to_delete += rec.second.end() - it;
-      if (it != rec.second.begin()) {
-        rec.second.erase(it, rec.second.end());
-        new_records[date] = rec.second;
+      removed += it->second.end() - new_end;
+      if (new_end == it->second.begin()) {
+        records_.erase(it->first);
+        it = chronology_.erase(it);
+      } else {
+        for (auto j = new_end; j != it->second.end(); ++j) {
+          records_[it->first].erase(*j);
+        }
+        it->second.erase(new_end, it->second.end());
+        ++it;
       }
     }
-    records_ = new_records;
-    return to_delete;
+    return removed;
   }
 
   template<typename Predicate> vector<pair<Date, string>> FindIf(Predicate predicate) const {
     vector<pair<Date, string>> satisfying;
-    for (const auto& rec : records_) {
-      for (const auto& ev: rec.second) {
-        if (predicate(rec.first, ev)) {
-          satisfying.emplace_back(rec.first, ev);
+    for (const auto& i : chronology_) {
+      for (const auto& j: i.second) {
+        if (predicate(i.first, j)) {
+          satisfying.emplace_back(i.first, j);
         }
       }
     }
@@ -47,7 +50,8 @@ public:
   }
 
 private:
-  map<Date, vector<string>> records_;
+  map<Date, set<string>> records_;
+  map<Date, vector<string>> chronology_;
 };
 
 ostream& operator << (ostream& os, const pair<Date, string>& record);
