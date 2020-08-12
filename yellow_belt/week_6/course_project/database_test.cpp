@@ -23,7 +23,7 @@ void TestDatabase() {
     try {
       db.Last(Date(2017, 11, 1));
       Assert(false, "No exception in the Last");
-    } catch (exception& ex) {}
+    } catch (invalid_argument& ex) {}
   }
   {
     Database db;
@@ -40,5 +40,52 @@ void TestDatabase() {
     AssertEqual(db.Last(Date(1, 1, 6)),
                 make_pair<Date, string>(Date(1, 1, 5), "d"),
                 "Incorrect Last work");
+    AssertEqual(db.Last(Date(1000, 10, 25)),
+                make_pair<Date, string>(Date(1, 1, 5), "d"),
+                "Incorrect Last work");
+  }
+  {
+    Database db;
+    db.Add(Date(1, 1, 1), "a");
+    db.Add(Date(1, 1, 3), "b");
+    db.Add(Date(1, 1, 5), "c");
+    db.Add(Date(1, 1, 5), "d");
+    auto predicate = [](const Date &date, const string &event) {
+      return true;
+    };
+    db.RemoveIf(predicate);
+    AssertEqual(db.FindIf(predicate), vector<pair<Date, string>>(), "Incorrect RemoveIf work");
+  }
+  {
+    Database db;
+    try {
+      db.Last(Date(1, 1, 1));
+      Assert(false, "No exception in the Last");
+    } catch (invalid_argument& ex) {}
+  }
+  {
+    Database db;
+    db.Add(Date(1, 1, 1), "a");
+    auto predicate = [](const Date &date, const string &event) {
+      return true;
+    };
+    db.RemoveIf(predicate);
+    try {
+      db.Last(Date(1, 1, 1));
+      Assert(false, "No exception in the Last");
+    } catch (invalid_argument& ex) {}
+  }
+  {
+    Database db;
+    db.Add(Date(1, 1, 1), "a");
+    db.Add(Date(1, 1, 2), "b");
+    auto predicate = [](const Date &date, const string &event) {
+      return true;
+    };
+    db.RemoveIf(predicate);
+    try {
+      db.Last(Date(1, 1, 2));
+      Assert(false, "No exception in the Last");
+    } catch (invalid_argument& ex) {}
   }
 }

@@ -16,11 +16,8 @@ void Database::Print(ostream& os) const {
 }
 
 pair<Date, string> Database::Last(const Date& date) const {
-  auto it = records_.lower_bound(date);
+  auto it = records_.upper_bound(date);
   if (it == records_.begin()) {
-    if (it->first == date) {
-      return make_pair(date, it->second.back());
-    }
     throw invalid_argument("No events for this date");
   }
   --it;

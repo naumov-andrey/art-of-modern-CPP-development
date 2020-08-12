@@ -26,6 +26,7 @@ public:
       });
       to_delete += rec.second.end() - it;
       if (it != rec.second.begin()) {
+        rec.second.erase(it, rec.second.end());
         new_records[date] = rec.second;
       }
     }
