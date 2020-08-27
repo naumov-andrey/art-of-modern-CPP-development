@@ -12,23 +12,24 @@ using namespace std;
 template <typename RandomIt>
 void MakeJosephusPermutation(RandomIt first, RandomIt last, uint32_t step_size) {
   if (step_size > 1) {
-    list<RandomIt> pool;
-    for (auto it = first; it != last; ++it) {
-      pool.push_back(it);
-    }
-    size_t n = 0;
-    auto cur_pos = pool.begin();
+    list<typename RandomIt::value_type> pool;
+    move(first, last, back_inserter(pool));
+    auto it = pool.begin();
     while (!pool.empty()) {
-      swap(*next(first, n), **next(cur_pos));
-      auto it = find(pool.begin(), pool.end(), next(first, n++));
-      if (it != pool.end()) {
-        *it = *next(cur_pos);
-      }
-      pool.erase(cur_pos);
+      *(first++) = move(*it);
+      it = pool.erase(it);
       if (pool.empty()) {
         break;
       }
-      cur_pos = (cur_pos + step_size - 1) % pool.size();
+      if (it == pool.end()) {
+        it = pool.begin();
+      }
+      for (int i = 0; i < step_size - 1; ++i) {
+        ++it;
+        if (it == pool.end()) {
+          it = pool.begin();
+        }
+      }
     }
   }
 }
