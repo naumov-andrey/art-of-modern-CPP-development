@@ -22,10 +22,12 @@ void TestFunctionality(
   istringstream docs_input(Join('\n', docs));
   istringstream queries_input(Join('\n', queries));
 
-  SearchServer srv;
-  srv.UpdateDocumentBase(docs_input);
   ostringstream queries_output;
-  srv.AddQueriesStream(queries_input, queries_output);
+  {
+    SearchServer srv;
+    srv.UpdateDocumentBase(docs_input);
+    srv.AddQueriesStream(queries_input, queries_output);
+  }
 
   const string result = queries_output.str();
   const auto lines = SplitBy(Strip(result), '\n');
@@ -201,6 +203,25 @@ void TestBasicSearch() {
   TestFunctionality(docs, queries, expected);
 }
 
+void TestThreads() {
+  LOG_DURATION("2nd part:")
+  const vector<string> docs = {
+    "london is the capital of great britain",
+    "i am travelling down the river"
+  };
+
+  const vector<string> queries = {
+    "london",
+    "the"
+  };
+
+  const vector<string> expected = {
+    "london: {docid: 0, hitcount: 1}",
+    "the: {docid: 0, hitcount: 1} {docid: 1, hitcount: 1}"
+  };
+  TestFunctionality(docs, queries, expected);
+}
+
 int main() { LOG_DURATION("All")
   TestRunner tr;
   RUN_TEST(tr, TestSerpFormat);
@@ -208,4 +229,6 @@ int main() { LOG_DURATION("All")
   RUN_TEST(tr, TestHitcount);
   RUN_TEST(tr, TestRanking);
   RUN_TEST(tr, TestBasicSearch);
+  RUN_TEST(tr, TestThreads);
+  return 0;
 }
